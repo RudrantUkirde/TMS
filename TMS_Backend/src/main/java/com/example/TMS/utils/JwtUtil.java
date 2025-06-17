@@ -6,12 +6,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import static io.jsonwebtoken.Jwts.*;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -28,7 +27,8 @@ public class JwtUtil {
     //    @Value("${security.jwt.expiration-time}")
     private long jwtExpiration=3600000;
 
-    private String secretKey="3f6A9!sLd@8#xRzQ1bV2uWm^pK$TeYhC";
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     private final UserRepository userRepository;
 

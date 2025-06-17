@@ -1,0 +1,63 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+<body class="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
+      style="background-image: url('geometric-abstract-light-blue-background-for-website-wallpapers-bussines-templates-vector.jpg')">
+
+  <div class="w-full max-w-md bg-white/90 p-8 mb-24 rounded-md shadow-lg border border-gray-200 backdrop-blur-sm transition-transform transform hover:scale-105 duration-300">
+    <!-- 🔔 Alert Message -->
+    <div *ngIf="alertMessage"
+        [ngClass]="{
+          'text-white px-4 py-2 mb-4 rounded border font-medium text-center transition-all duration-300': true,
+          'bg-red-500 border-red-500': alertType === 'error',
+          'bg-green-400 border-green-500': alertType === 'success'
+        }">
+      {{ alertMessage }}
+    </div>
+
+    <h1 class="text-2xl font-bold text-center text-indigo-600">Login Here!!!!</h1>
+
+    <!-- Form Start -->
+    <form [formGroup]="loginForm"
+          class="w-full max-w-sm mx-auto bg-transparent p-8 rounded-md"
+          novalidate>
+
+      <!-- Email -->
+      <div class="mb-4 group">
+        <label class="block text-gray-700 text-sm font-bold mb-2 group-hover:text-indigo-600 group-hover:text-base transition-all duration-300" for="email">Email</label>
+        <input [ngClass]="{'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+               class="w-full px-3 py-2 text-gray-600 border bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+               type="email" formControlName="email" placeholder="example@email.com" required email>
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <div class="text-red-500 text-sm mt-1">*Please Enter Valid Email..</div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4 group">
+        <label class="block text-gray-700 text-sm font-bold mb-2 group-hover:text-indigo-600 group-hover:text-base transition-all duration-300" for="password">
+          Password <i class="fa-solid fa-eye" (click)="togglePasswordVisibility()"></i>
+        </label>
+        <input [ngClass]="{'border-red-500': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+               class="w-full px-3 py-2 text-gray-600 border bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+               type="{{ hidePassword ? 'password' : 'text'}}" formControlName="password" placeholder="password" required minlength="6">
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="text-red-500 text-sm mt-1">*Password required..</div>
+        }
+      </div>
+
+      <!-- Submit -->
+      <button type="submit"
+              class="w-full mt-6 bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition-transform transform hover:scale-105 duration-300"
+              (click)="onSubmit()">Login</button>
+    </form>
+
+    <!-- Signup Link -->
+    <p class="text-center text-sm text-gray-700 mt-4">
+      Don't have an account?
+      <a routerLink="/signup" class="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
+        Sign up here
+      </a>
+    </p>
+  </div>
+</body>

@@ -17,3 +17,48 @@
 
 ## 📁 Folder Structure
 
+
+---
+
+## 🚀 Features
+
+- 🧑‍💼 Admin and Employee Role Management
+- ✅ JWT Authentication
+- 📋 Task & Comment CRUD
+- 📊 Dashboard with real-time updates
+- 🧩 Modular codebase with DTOs, Services, and Repositories
+
+---
+
+## 🧰 Tech Stack
+
+| Frontend       | Backend        | Database | Auth   |
+|----------------|----------------|----------|--------|
+| Angular        | Spring Boot    | MySQL    | JWT    |
+| TypeScript     | Java           |          | Bcrypt |
+
+---
+
+## 🛠️ Setup Instructions
+
+### 🖥 Backend (Spring Boot)
+
+```bash
+cd TMS_Backend
+./mvnw spring-boot:run
+
+cd TMS_FrontEnd
+npm install
+ng serve
+
+
+---
+
+### ✅ Notes:
+- Replace placeholder links with your actual content (e.g., screenshots, LinkedIn).
+- GitHub will render this markdown beautifully.
+
+Would you like me to generate a ready-to-paste `README.md` file for your current project structure with your name/links filled in?
+
+
+

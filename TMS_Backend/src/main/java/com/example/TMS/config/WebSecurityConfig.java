@@ -4,6 +4,7 @@ package com.example.TMS.config;
 import com.example.TMS.enums.UserRole;
 import com.example.TMS.service.jwt.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,6 +38,9 @@ public class WebSecurityConfig implements WebMvcConfigurer{
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final UserService userService;
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -83,9 +87,10 @@ public class WebSecurityConfig implements WebMvcConfigurer{
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:4200")); // ✅ frontend origin
+        config.setAllowedOrigins(List.of(frontendUrl)); // ✅ frontend origin
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // only needed if sending cookies/token

@@ -5,7 +5,7 @@ import { StorageService } from '../../../auth/services/storage/storage.service';
 import { environment } from '../../../../environments/environment';
 
 
-const BASE_URL=environment.apiUrl
+const BASE_URL=environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'

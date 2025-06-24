@@ -1,6 +1,7 @@
 package com.example.TMS.service.auth;
 
 
+import com.example.TMS.dto.AdminDto;
 import com.example.TMS.dto.SignUpRequestDto;
 import com.example.TMS.dto.UserDto;
 import com.example.TMS.entity.User;
@@ -58,5 +59,26 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public Boolean verifyUserWithEmail(String email) {
         return userRepository.findFirstByEmail(email).isPresent();
+    }
+
+    @Override
+    public Boolean createNewAdmin(AdminDto adminDto) {
+
+        Optional<User> opUser=userRepository.findFirstByEmail(adminDto.getEmail());
+
+        if(opUser.isEmpty()){
+
+            User user=new User();
+            user.setName(adminDto.getName());
+            user.setEmail(adminDto.getEmail());
+            user.setPassword(new BCryptPasswordEncoder().encode(adminDto.getPassword()));
+            user.setUserRole(UserRole.ADMIN);
+
+            userRepository.save(user);
+            return true;
+        }
+
+        System.out.println("Email already Exist");
+        return false;
     }
 }

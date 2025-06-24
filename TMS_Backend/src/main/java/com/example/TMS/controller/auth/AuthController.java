@@ -1,10 +1,7 @@
 package com.example.TMS.controller.auth;
 
 
-import com.example.TMS.dto.LoginRequestDto;
-import com.example.TMS.dto.LoginResponseDto;
-import com.example.TMS.dto.SignUpRequestDto;
-import com.example.TMS.dto.UserDto;
+import com.example.TMS.dto.*;
 import com.example.TMS.entity.User;
 import com.example.TMS.repositories.UserRepository;
 import com.example.TMS.service.auth.AuthService;
@@ -83,5 +80,14 @@ public class AuthController {
 
         return loginResponseDto;
 
+    }
+
+    @PostMapping("/createAdmin")
+    public ResponseEntity<?> createNewAdmin(@RequestBody AdminDto adminDto){
+
+        if(authService.createNewAdmin(adminDto)){
+            return ResponseEntity.status(HttpStatus.CREATED).body("Admin created successfully!!");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exist");
     }
 }

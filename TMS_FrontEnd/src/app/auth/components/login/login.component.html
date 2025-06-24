@@ -17,10 +17,27 @@
 
     <h1 class="text-2xl font-bold text-center text-indigo-600">Login Here!!!!</h1>
 
+
+    <!-- 🔴 Preview Box -->
+    <!-- <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-2" role="alert">
+      <strong class="font-bold">For Preview:</strong>
+      <p class="underline text-red-800"></p>
+      <p>Password: <span class="italic underline text-red-800">password</span></p>
+      <p class="text-sm">Use this to preview a signed-in user.</p>
+    </div> -->
+
+
     <!-- Form Start -->
     <form [formGroup]="loginForm"
           class="w-full max-w-sm mx-auto bg-transparent p-8 rounded-md"
           novalidate>
+
+        <!-- 🔴 Preview Box -->
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-2" role="alert">
+        <strong class="font-bold">For Admin Testing</strong>
+        <p>Email:<span class="underline text-red-800">test&#64;email.com</span></p>
+        <p>Password: <span class="italic underline text-red-800">test&#64;1234</span></p>
+      </div>
 
       <!-- Email -->
       <div class="mb-4 group">

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -26,6 +26,12 @@ export class DashboardComponent {
 
     this.getAllTasks();
   }
+
+  ngOnInit(): void {
+  
+    this.getAllTasks();
+  } 
+
 
     //Get ALL Task Method
     getAllTasks(){
@@ -84,14 +90,24 @@ export class DashboardComponent {
       this.listOfTasks=[];
       const title=this.searchForm.get('title')?.value;
 
+      if(!title){
+        this.getAllTasks();  // Reset list if search box is cleared
+        return;
+      }
+
       this.service.searchTaskByTitle(title).subscribe({
 
         next: (res) => {
           console.log(res);
           this.listOfTasks = res;
-          // this.alertType = 'success';
-          // this.alertMessage = 'Search successful!';
-          // setTimeout(() => (this.alertMessage = ''), 3000);
+
+          if(this.listOfTasks.length === 0){
+            this.alertType = 'error';
+            this.alertMessage = 'No Task present with this title';
+            setTimeout(() => (this.alertMessage = ''), 2000);
+          }else{
+            this.alertMessage='';
+          }
         },
         error: (err) => {
           console.error(err);

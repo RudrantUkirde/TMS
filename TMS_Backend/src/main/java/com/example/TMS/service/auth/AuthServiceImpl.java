@@ -21,25 +21,25 @@ public class AuthServiceImpl implements AuthService{
 
     private final UserRepository userRepository;
 
-    @PostConstruct
-    public void createAdminAccount(){
-
-        Optional<User> optionalUser=userRepository.findByUserRole(UserRole.ADMIN);
-
-        if(optionalUser.isEmpty()){
-
-            User user=new User();
-            user.setEmail("admin@gmail.com");
-            user.setName("admin");
-            user.setPassword(new BCryptPasswordEncoder().encode("Admin@1234"));
-            user.setUserRole(UserRole.ADMIN);
-
-            userRepository.save(user);
-            System.out.println("ADMIN created successfully");
-        }else{
-            System.out.println("ADMIN already Exist");
-        }
-    }
+//    @PostConstruct
+//    public void createAdminAccount(){
+//
+//        Optional<User> optionalUser=userRepository.findByUserRole(UserRole.ADMIN);
+//
+//        if(optionalUser.isEmpty()){
+//
+//            User user=new User();
+//            user.setEmail("admin@gmail.com");
+//            user.setName("admin");
+//            user.setPassword(new BCryptPasswordEncoder().encode("Admin@1234"));
+//            user.setUserRole(UserRole.ADMIN);
+//
+//            userRepository.save(user);
+//            System.out.println("ADMIN created successfully");
+//        }else{
+//            System.out.println("ADMIN already Exist");
+//        }
+//    }
 
     @Override
     public UserDto signupUser(SignUpRequestDto signUpRequestDto) {

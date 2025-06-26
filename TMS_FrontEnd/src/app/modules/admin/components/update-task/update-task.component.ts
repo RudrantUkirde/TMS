@@ -14,33 +14,34 @@ export class UpdateTaskComponent {
   id:number=0;
 
   updateTaskForm !: FormGroup;
-  listOfEmployees:any=[];
+  listOfEmployees:any[]=[];
   listOfPriorities:any=["LOW","MEDIUM","HIGH"];
   listOfTaskStatus:any=["PENDING","INPROGRESS","COMPLETED","DEFERRED","CANCELLED"];
 
 
   constructor(private service:AdminService,private route:ActivatedRoute,private fb:FormBuilder,private router:Router){
+     const task=this.route.snapshot.data['taskData'];
     this.id=this.route.snapshot.params["id"];
-    this.getTaskById();
 
     this.updateTaskForm=this.fb.group({
-      employeeId:[null,[Validators.required]],
+      employeeId:[task.employeeId,[Validators.required]],
 
-      title:[null,[Validators.required]],
+      title:[task.title,[Validators.required]],
 
-      description:[null,[Validators.required]],
+      description:[task.description,[Validators.required]],
 
-      dueDate:[null,[Validators.required]],
+      dueDate:[task.dueDate,[Validators.required]],
 
-      priority:[null,[Validators.required]],
+      priority:[task.priority,[Validators.required]],
 
-      taskStatus:[null,[Validators.required]],
+      taskStatus:[task.taskStatus,[Validators.required]],
 
       
     })
 
     this.getUsers();
   }
+
 
   getUsers(){
     this.service.getUsers().subscribe({
@@ -55,20 +56,6 @@ export class UpdateTaskComponent {
     })
   }
 
-  getTaskById() {
-    this.service.getTaskById(this.id).subscribe({
-      next:(res)=>{
-
-        this.updateTaskForm.patchValue(res);
-        console.log(res);
-      },
-      error:(err)=>{
-
-        console.log(err);
-      }
-    })
-
-  }
 
   updateTask() {
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -15,21 +15,21 @@ export class DashboardComponent {
   alertType: 'success' | 'error' | '' = '';
 
 
-  listOfTasks:any=[];
+  listOfTasks:any[]=[];
   searchForm !: FormGroup;
 
-  constructor(private service:AdminService,private router:Router,private fb:FormBuilder){
+  constructor(private service:AdminService,private router:Router,private fb:FormBuilder,private route:ActivatedRoute){
 
     this.searchForm=this.fb.group({
       title:[null]
     })
 
-    this.getAllTasks();
   }
 
   ngOnInit(): void {
   
-    this.getAllTasks();
+    // this.getAllTasks();
+    this.listOfTasks=this.route.snapshot.data['taskList'];
   } 
 
 

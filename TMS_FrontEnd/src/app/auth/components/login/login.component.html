@@ -65,8 +65,19 @@
 
       <!-- Submit -->
       <button type="submit"
-              class="w-full mt-6 bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition-transform transform hover:scale-105 duration-300"
-              (click)="onSubmit()">Login</button>
+              class="w-full mt-8 bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition-transform transform hover:scale-105 duration-300 flex items-center justify-center gap-2"
+              [disabled]="isLoading"
+              (click)="onSubmit()">
+        
+        <!-- Spinner -->
+        <div *ngIf="isLoading"
+            class="h-4 w-4 border-2 border-white border-b-transparent rounded-full animate-spin"></div>
+
+        <!-- Button Text -->
+        <span>{{ isLoading ? 'Logging in...' : 'Login' }}</span>
+      </button>
+
+
     </form>
 
     <!-- Signup Link -->

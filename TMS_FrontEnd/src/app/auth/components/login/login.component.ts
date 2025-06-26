@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage/storage.service';
+import { LoaderService } from '../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class LoginComponent {
 
+  isLoading = false;
 
   loginForm !: FormGroup;
   hidePassword=true;
@@ -19,7 +21,7 @@ export class LoginComponent {
   alertMessage: string = '';
   alertType: 'success' | 'error' | '' = '';
 
-  constructor(private fb: FormBuilder,private authService:AuthService,private router: Router){
+  constructor(private fb: FormBuilder,private authService:AuthService,private router: Router,private loader:LoaderService){
 
     this.loginForm= this.fb.group({
 
@@ -45,6 +47,9 @@ export class LoginComponent {
       return;
     }
 
+    this.isLoading = true;
+    this.loader.showButtonLoader();
+
     const payload = this.loginForm.value;
 
     this.authService.login(payload).subscribe({
@@ -61,23 +66,25 @@ export class LoginComponent {
           StorageService.saveToken(res.jwt);
 
           if(StorageService.isAdminLoggedIn()){
+
+            // setTimeout(() => {
+            //   this.isLoading = false;
+            //   this.loader.hideButtonLoader();
+            //   this.alertMessage = 'Login successful!';  // Replace with actual logic
+            //   this.alertType = 'success';
+            //   // Navigate to dashboard or show error based on response
+            //   this.router.navigateByUrl("/admin/dashboard");
+            // }, 6000);
             this.router.navigateByUrl("/admin/dashboard");
           }else if(StorageService.isEmployeeLoggedIn()){
+
             this.router.navigateByUrl("/employee/dashboard");
           }
 
-          // this.alertType='success';
-          // this.alertMessage="Signup successful!";
+        }
 
-          // this.router.navigateByUrl("/login");
-
-          // setTimeout(() => {
-          // this.loginForm.reset();
-          // this.alertMessage = '';
-          // this.alertType = '';
-          // }, 3000);
-
-        }    
+        // this.isLoading = false;
+        // this.loader.hideButtonLoader();
 
       },
       error:(err) =>{
@@ -90,6 +97,8 @@ export class LoginComponent {
         } else {
           this.alertMessage = 'Something went wrong. Please try again.';
         }
+        this.isLoading = false;
+        this.loader.hideButtonLoader();
 
       }
     });

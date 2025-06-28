@@ -53,6 +53,7 @@ export class SignupComponent {
     if(this.signupForm.invalid){
       this.alertType='error';
       this.alertMessage='Please fill in the form correctly.';
+      this.signupForm.markAllAsTouched();
       return;
     }
 

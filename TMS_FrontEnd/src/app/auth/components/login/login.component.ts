@@ -44,6 +44,7 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       this.alertType = 'error';
       this.alertMessage = 'Please fill in the form correctly.';
+      this.loginForm.markAllAsTouched();
       return;
     }
 
